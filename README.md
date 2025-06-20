@@ -8,27 +8,27 @@ Prérequis :
  - Composer
 
 ligne de commande :
-> install scoop 
-> scoop install symfony-cli
-> composer create-project symfony/skeleton Symfony_application
-> cd Symfony_application
-> composer require webapp
+ install scoop 
+ scoop install symfony-cli
+ composer create-project symfony/skeleton Symfony_application
+ cd Symfony_application
+ composer require webapp
 
  Si le fichier .env et le fichier Kernel.php sont absent :
 copier ceux du répertoire. 
-
-> composer install
+ligne de commande :
+ composer install
 
 Remplacer les dossier templates, src, publique du répertoire à votre application
-
-> composer require symfonycasts/verify-email-bundle
-> composer require --dev doctrine/doctrine-fixtures-bundle
-> composer require stripe/stripe-php
-> composer require symfony/dotenv --dev
-> npm install bootstrap --save-dev
-> npm install jquery @popperjs/core --save-dev
-> composer require doctrine/doctrine-migrations-bundle
-> composer install
+ligne de commande :
+ composer require symfonycasts/verify-email-bundle
+ composer require --dev doctrine/doctrine-fixtures-bundle
+ composer require stripe/stripe-php
+ composer require symfony/dotenv --dev
+ npm install bootstrap --save-dev
+ npm install jquery @popperjs/core --save-dev
+ composer require doctrine/doctrine-migrations-bundle
+ composer install
 
 Remplacer le fichier config/packages/security config/packages/framework et config/routes/annotations de ce répertoire à votre application
 Remplacer le fichier config/services de ce répertoire à votre application
@@ -48,14 +48,14 @@ STRIPE_SECRET_KEY=<your_stripe_secret_key_here>
 STRIPE_PUBLIC_KEY=<your_stripe_public_key_here>
 
 ajouter le role ["ROLE_ADMIN"] aux user que vous voulez rendre admin un user dans php adminer 
-
-> php bin/console cache:clear
-> php bin/console doctrine:database:create
-> php bin/console doctrine:migrations:diff
-> php bin/console doctrine:migrations:migrate
-> php bin/console doctrine:fixtures:load
-> symfony server:start
+ligne de commande :
+ php bin/console cache:clear
+ php bin/console doctrine:database:create
+ php bin/console doctrine:migrations:diff
+ php bin/console doctrine:migrations:migrate
+  php bin/console doctrine:fixtures:load
+ symfony server:start
 
 créer le fichier start.bat puis remplacer le contenu de ce répertoire à celui du votre (pour faire le test au lancement de l'application)
-
-> start.bat
+ligne de commande :
+ start.bat
