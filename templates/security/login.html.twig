@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+{% if not app.user %}
+<header class="border border-1 border-black py-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 d-flex flex-column ps-5">
+                <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="width: 150px; margin-left:2.5vw">
+                <small class="text-muted fs-5 fw-light">Don't compromise on your look</small>
+            </div>
+            <div class="col-md-9 d-flex justify-content-end pe-5">
+                <nav class="d-flex fs-4 fw-light gap-5">
+                    <a href="{{ path('app_home') }}" class="text-decoration-none text-dark">Accueil</a>
+                    <a href="{{ path('app_register') }}" class="text-decoration-none text-dark">S'inscrire</a>
+                    <a href="{{ path('app_login') }}" class="text-decoration-none text-dark fw-bold text-decoration-underline">Se connecter</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+{% endif %}
+
+<div class="border-end border-bottom border-start border-1 border-black" style="min-height: 80vh;">
+    <div class="d-flex justify-content-center py-5">
+        <div class="border p-4" style="min-width: 300px; max-width: 400px;">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <h2 class="mb-4 fs-3 fw-light">Se connecter</h2>
+            <form method="post">
+                <div class="mb-3">
+                    <label for="identifier" class="fs-6 fw-light">Nom d'utilisateur ou email</label>
+                    <input type="text" id="identifier" name="identifier" value="{{ app.session.get('_custom_last_username') }}" required class="form-control" autofocus>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="fs-6 fw-light">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me">
+                    <label class="form-check-label fs-6 fw-light" for="remember_me">Se rappeler de moi</label>
+                </div>
+
+                <button class="btn btn-primary mb-2 fs-6 fw-light" type="submit">Se connecter</button>
+            </form>
+
+            <div class="mt-2">
+                <a href="{{ path('app_forgot_password_request') }}" class="fs-6 fw-light">Mot de passe oublié ?</a>
+            </div>
+            <div class="mt-3">
+                <p class="fs-6 fw-light" >Pas encore inscrit ?</p>
+                <a href="{{ path('app_register') }}" class="btn btn-info text-white fs-6 fw-light">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border border-1 border-black py-2" style="margin:0.5vw">
+            <p class="fs-6 fw-light" style="margin-left:2vw; margin-top:1vh">Nom de la société : Stubborn </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Adresse : Piccadilly Circus, London W1J 0DA, Royaume-Uni </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Adresse de contact : stubborn@blabla.com </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Slogan: Don't compromise on your look </p>
+    </footer>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+parameters:
+    uploads_directory: '%kernel.project_dir%/public/images/sweatshirt'
+    stripe.secret_key: '%env(STRIPE_SECRET_KEY)%'
+    stripe.public_key: '%env(STRIPE_PUBLIC_KEY)%'
+
+services:
+    App\EventListener\StripeBootListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+            
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Service\StripeService:
+        public: true
+        arguments:
+            $stripeSecretKey: '%stripe.secret_key%'
+            $urlGenerator: '@router.default'
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Service/StripeService.php'

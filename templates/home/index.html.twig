@@ -1,0 +1,70 @@
+{# templates/home/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceuil{% endblock %}
+
+{% block body %}
+{% if app.user %}
+    <header class="border border-1 border-black py-3">
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-md-3 d-flex align-items-start justify-content-start flex-column ps-5">
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="width: 150px;margin-left:2.5vw">
+                    <small class="text-muted fs-5 fw-light">Don't compromise on your look</small>
+                </div>
+                <div class="col-md-9 d-flex justify-content-end pe-5">
+                    <nav class="d-flex fs-4 fw-light gap-5">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_admin') }}" class="text-decoration-none text-dark">Back-office</a>
+                        {% endif %}
+                        <a href="{{ path('app_home') }}" class="text-decoration-none text-dark fw-bold text-decoration-underline">Accueil</a>
+                        <a href="{{ path('app_list_product') }}" class="text-decoration-none text-dark">Boutique</a>
+                        <a href="{{ path('app_cart') }}" class="text-decoration-none text-dark">Panier</a>
+                        <a href="{{ path('app_logout') }}" class="text-decoration-none text-dark">Se déconnecter</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endif %}
+{% if not app.user %}
+    <header class="border border-1 border-black py-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 d-flex align-items-start justify-content-start flex-column ps-5">
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="width: 150px;margin-left:1vw">
+                    <small class="text-muted fs-6">Don't compromise on your look</small>
+                </div>
+                <div class="col-md-9 d-flex justify-content-end pe-5">
+                    <nav class="d-flex fs-4 fw-light gap-5">
+                        <a href="{{ path('app_home') }}" class="text-decoration-none text-dark fw-bold text-decoration-underline">Accueil</a>
+                        <a href="{{ path('app_register') }}" class="text-decoration-none text-dark">S'inscrire</a>
+                        <a href="{{ path('app_login') }}" class="text-decoration-none text-dark">Se connecter</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endif %}
+<div class="border-end border-bottom border-start border-1 border-black" style="min-height: 80vh;">
+        <div class="container py-5">
+            <section>
+                <div class="row g-4 d-flex justify-content-between">
+                    {% for sweatshirt in sweatshirts %}
+                        {% if sweatshirt.selection %}
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                {% include 'product/_product_table.html.twig' with { sweatshirt: sweatshirt } %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+        <footer class="border border-1 border-black py-2" style="margin:0.5vw">
+            <p class="fs-6 fw-light" style="margin-left:2vw; margin-top:1vh">Nom de la société : Stubborn </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Adresse : Piccadilly Circus, London W1J 0DA, Royaume-Uni </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Adresse de contact : stubborn@blabla.com </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Slogan: Don't compromise on your look </p>
+        </footer>
+</div>    
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ sweatshirt.name }} - Détail{% endblock %}
+{% block javascripts %}
+    <script>
+        function selectSize(event, element, productId) {
+            event.preventDefault();
+
+            // Récupère les infos de la taille sélectionnée
+            const sizeId = element.dataset.sizeId;
+            const stock = parseInt(element.dataset.stock, 10);
+
+            // Met à jour le champ caché pour la taille
+            document.getElementById('selectedSizeInput' + productId).value = sizeId;
+
+            // Met à jour l'affichage du stock
+            document.getElementById('stockCount' + productId).innerText = stock;
+
+            // Met à jour les options de quantité
+            const quantitySelect = document.getElementById('quantitySelect' + productId);
+            quantitySelect.innerHTML = '';
+            for (let i = 1; i <= stock; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.text = i;
+                quantitySelect.appendChild(option);
+            }
+
+            // Met à jour le style actif
+            const allLinks = element.parentElement.querySelectorAll('a');
+            allLinks.forEach(link => link.classList.remove('border', 'border-light', 'bg-primary-subtle', 'text-dark'));
+            element.classList.add('border', 'border-light', 'bg-primary-subtle', 'text-dark');
+        }
+    </script>
+{% endblock %}
+{% block body %}
+        
+{% if app.user %}
+    <header class="border border-1 border-black py-3">
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-md-3 d-flex align-items-start justify-content-start flex-column ps-5">
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="Logo" style="width: 150px;margin-left:2.5vw">
+                    <small class="text-muted fs-5 fw-light">Don't compromise on your look</small>
+                </div>
+                <div class="col-md-9 d-flex justify-content-end pe-5">
+                    <nav class="d-flex fs-4 fw-light gap-5">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_admin') }}" class="text-decoration-none text-dark">Back-office</a>
+                        {% endif %}
+                        <a href="{{ path('app_home') }}" class="text-decoration-none text-dark">Accueil</a>
+                        <a href="{{ path('app_list_product') }}" class="text-decoration-none text-dark">Boutique</a>
+                        <a href="{{ path('app_cart') }}" class="text-decoration-none text-dark">Panier</a>
+                        <a href="{{ path('app_logout') }}" class="text-decoration-none text-dark">Se déconnecter</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endif %}
+<div class="border-end border-bottom border-start border-1 border-black" style="min-height: 80vh;">
+    <div class="card h-100 p-3 border border-1 border-black" style="width:60vw; margin:5vw">
+        <div class="d-flex justify-content-between">
+            <div class="col-md-7 d-flex align-items-start justify-content-start flex-column ps-5">
+                    {% if sweatshirt.imageName %}
+                        <img src="{{ asset('images/sweatshirt/' ~ sweatshirt.imageName) }}" width="500">
+                    {% endif %}
+            </div>
+            <div class="col-md-2 d-flex flex-column align-items-start" style="margin-top:10vh">
+                <p class="card-title mb-4 fs-4 fw-light">{{ sweatshirt.name }}</p>
+                <p class="card-title mb-4 fs-4 fw-light"> {{ (sweatshirt.price / 100)|number_format(2, ',', ' ') }} €</p>
+            </div>
+            <div class="col-md-3 d-flex flex-column align-items-start" style="margin-top:5vh">
+                <form method="POST" action="{{ path('cart_add') }}">
+                    <input type="hidden" name="product_id" value="{{ sweatshirt.id }}">
+                    <input type="hidden" name="size_id" id="selectedSizeInput{{ sweatshirt.id }}">
+                    
+                    <label class=" fs-5 fw-light">Taille :</label>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        {% for productSize in sweatshirt.productSizes %}
+                            {% set available = productSize.quantity > 0 %}
+                            <a href="#"
+                            class="badge {% if available %}bg-dark{% else %}bg-secondary text-decoration-line-through{% endif %} text-white fs-6"
+                            data-size-id="{{ productSize.size.id }}"
+                            data-stock="{{ productSize.quantity }}"
+                            onclick="selectSize(event, this, {{ sweatshirt.id }})"
+                            style="cursor: {% if available %}pointer{% else %}not-allowed{% endif %}; padding: 10px;">
+                            {{ productSize.size.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    <div id="stockInfo{{ sweatshirt.id }}" class=" fs-5 fw-light" style="margin-top: 5px;">
+                        Stock disponible : <span id="stockCount{{ sweatshirt.id }}">—</span>
+                    </div>
+
+                    <label for="quantitySelect{{ sweatshirt.id }}" class=" fs-5 fw-light">Quantité :</label>
+                    <select name="quantity" id="quantitySelect{{ sweatshirt.id }}" class="form-select w-auto mb-3"></select>
+
+                    <button type="submit" class="btn btn-dark">Ajouter au panier</button>
+                </form>
+            </div>
+        
+        </div>
+    </div>
+    <footer class="border border-1 border-black py-2" style="margin:0.5vw">
+            <p class="fs-6 fw-light" style="margin-left:2vw; margin-top:1vh">Nom de la société : Stubborn </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Adresse : Piccadilly Circus, London W1J 0DA, Royaume-Uni </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Adresse de contact : stubborn@blabla.com </p>
+            <p class="fs-6 fw-light" style="margin-left:2vw">Slogan: Don't compromise on your look </p>
+    </footer>
+</div>
+{% endblock %}

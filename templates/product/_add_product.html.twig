@@ -1,0 +1,74 @@
+
+    {{ form_start(add_form, {
+                'enctype': 'multipart/form-data',
+                'attr': {'id': 'add-form'}
+            }) }}
+            <div class="row align-items-center">
+                        <div class="col-md-3 text-center">
+                            <label for="add-file-input" style="cursor: pointer;">
+                            <div id="add-preview">
+                                <img src="{{ asset('images/sweatshirt/default.png') }}" style="max-width: 200px;" />
+                            </div>
+                            </label>
+                            <input 
+                                type="file" 
+                                id="add-file-input" 
+                                name="{{ add_form.imageFile.vars.full_name }}" 
+                                class="d-none" 
+                                accept="image/*">
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="row mb-3">
+                                <div class="col-md-2 me-3" style="width: 160pxpx;">
+                                    <label class="form-label fs-5 fw-light">Nom</label>
+                                    {{ form_widget(add_form.name, { 'attr': {'class': 'form-control fs-5 fw-light'} }) }}
+                                </div>
+                                <div class="col-md-2 me-3" style="width: 120px;">
+                                    <label class="form-label fs-5 fw-light">Prix</label>
+                                    {{ form_widget(add_form.price, { 'attr': {'class': 'form-control fs-5 fw-light'} }) }}
+                                </div>
+                                <div class="col-md-8 d-flex flex-wrap align-items-center">
+                                    {% for ps in add_form.productSizes %}
+                                        <div class="me-3 mb-2" style="width: 100px;">
+                                            <label class="form-label fs-5 fw-light">Stock {{ ps.vars.data.size.name }}</label>
+                                            {{ form_widget(ps.quantity, { 'attr': {'class': 'form-control fs-5 fw-light'} }) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2">
+                            {{ form_row(add_form.selection, {
+                                'label': 'Sélection',
+                                'label_attr': {'class': 'label fs-5 fw-light', 'style': 'padding-right:0.5vw'},
+                                'attr': {'class': 'champs fs-5 fw-light'}
+                            }) }}{{ form_row(add_form._token) }}
+                                <input type="hidden" name="add_mode" value="1">
+                                <button type="submit" class="btn btn-primary fs-5 fw-light" style="width:15vw; height:5vh">Ajouter</button>
+                            </div>
+                        </div>
+            </div>
+    {{ form_end(add_form, { 'render_rest': false }) }} 
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addInput = document.getElementById('add-file-input');
+        const addImage = document.querySelector('#add-preview img');
+
+        if (addInput && addImage) {
+            addInput.addEventListener('change', function () {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        addImage.src = e.target.result;
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+
