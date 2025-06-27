@@ -1,57 +1,122 @@
-Prérequis :
-  - PHP 8.4.8
-  - MySQL 8.0.24
-  - Apach 2.4.63.1
-  - Adminer 5.3.0
- - Symfony 7
- - Composer
+# 🧪 Symfony Application - Installation Guide
 
-ligne de commande :
-- install scoop 
-- scoop install symfony-cli
-- composer create-project symfony/skeleton Symfony_application
-- cd Symfony_application
-- composer require webapp
+## ✅ Prérequis
 
-- composer install
+| Logiciel        | Version minimale |
+|----------------|------------------|
+| PHP            | 8.4.8            |
+| MySQL          | 8.0.24           |
+| Apache         | 2.4.63.1         |
+| Symfony        | 7                |
+| Composer       | ✅               |
+| Node.js & npm  | ✅               |
+| Adminer (ou autre outil SQL) | ✅  |
 
-Remplacer les dossier du répertoire à votre application
+---
 
-- composer require symfonycasts/verify-email-bundle
-- composer require --dev doctrine/doctrine-fixtures-bundle
-- composer require stripe/stripe-php
-- composer require symfony/dotenv --dev
-- npm install bootstrap --save-dev
-- npm install jquery @popperjs/core --save-dev
-- composer require doctrine/doctrine-migrations-bundle
-- composer install
+## ⚙️ Installation
 
-Connecter vous à votre base de données -> modifier dans env. les données avec les votre ->
+### 1. Cloner ou copier ce répertoire
 
+```bash
+git clone <repo-url> Symfony_application
+cd Symfony_application
+```
+
+### 2. Installer Symfony CLI
+
+#### Sous **Windows** :
+```powershell
+scoop install symfony-cli
+```
+
+#### Sous **Linux/macOS** :
+```bash
+curl -sS https://get.symfony.com/cli/installer | bash
+```
+
+### 3. Installation du projet Symfony
+
+```bash
+composer install
+```
+
+---
+
+## 📦 Installation des dépendances supplémentaires
+
+```bash
+composer require symfonycasts/verify-email-bundle
+composer require --dev doctrine/doctrine-fixtures-bundle
+composer require stripe/stripe-php
+composer require symfony/dotenv --dev
+composer require doctrine/doctrine-migrations-bundle
+
+npm install bootstrap jquery @popperjs/core --save-dev
+```
+
+---
+
+## 🛠️ Configuration de l’environnement
+
+Modifier le fichier `.env` :
+
+```
 APP_ENV=dev
-
-APP_SECRET=<your_app_secret_here>
-
+APP_SECRET=your_secret
 APP_DEBUG=true
 
 LIMIT_PAGINATION_5=8
 
-DATABASE_URL="mysql://root:<your_database_password>@127.0.0.1:3306/<symfony_project>?serverVersion=8.0.42&charset=utf8mb4"
+DATABASE_URL="mysql://root:<password>@127.0.0.1:3306/<db_name>?serverVersion=8.0.42&charset=utf8mb4"
 
-MAILER_DSN=smtp://<your_email@gmail.com>:<your_email_password>@smtp.gmail.com:587?encryption=tls&auth_mode=login
+MAILER_DSN=smtp://your_email@gmail.com:<your_email_password>@smtp.gmail.com:587?encryption=tls&auth_mode=login
 
-STRIPE_SECRET_KEY=<your_stripe_secret_key_here>
-STRIPE_PUBLIC_KEY=<your_stripe_public_key_here>
+STRIPE_SECRET_KEY=sk_test_xxxx
+STRIPE_PUBLIC_KEY=pk_test_xxxx
+```
 
-ajouter le role ["ROLE_ADMIN"] aux user que vous voulez rendre admin dans php adminer 
+---
 
-- php bin/console cache:clear
-- php bin/console doctrine:database:create
-- php bin/console doctrine:migrations:diff
-- php bin/console doctrine:migrations:migrate
-- php bin/console doctrine:fixtures:load
-- symfony server:start
+## 🧑‍💻 Créer la base de données
 
-créer le fichier start.bat puis remplacer le contenu de ce répertoire à celui du votre (pour faire le test au lancement de l'application)
+```bash
+php bin/console cache:clear
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:diff
+php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
+```
 
-- start.bat
+---
+
+## 🔐 Admin
+
+Modifier le champ `roles` d'un utilisateur dans votre base de données :
+
+```json
+["ROLE_ADMIN"]
+```
+
+Utilisez Adminer, PhpMyAdmin ou DBeaver pour modifier directement dans la table `user`.
+
+---
+
+## 🚀 Lancement du serveur
+
+```bash
+symfony server:start
+```
+
+#### Sous **Windows** :
+```powershell
+start.bat
+```
+
+#### Sous **Linux/macOS** :
+```bash
+chmod +x start.sh
+```
+
+## 🎉 Le projet est prêt !
+Accédez à l'application via [http://localhost:8000](http://localhost:8000)
