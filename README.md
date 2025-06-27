@@ -37,7 +37,7 @@ curl -sS https://get.symfony.com/cli/installer | bash
 
 ## 🛠️ Configuration de l’environnement
 
-Créer et modifier le fichier avec vos données `.env` (vous devez être connecté à votre bdd local) :
+Créer et modifier le fichier avec vos données `.env` à la racine de projet (vous devez être connecté à votre bdd local) :
 
 ```
 APP_ENV=dev
