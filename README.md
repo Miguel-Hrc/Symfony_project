@@ -1,5 +1,4 @@
 Prérequis :
- - Wampserver3.3.8
   - PHP 8.4.8
   - MySQL 8.0.24
   - Apach 2.4.63.1
