@@ -29,7 +29,9 @@ Remplacer les dossier du répertoire à votre application
 Connecter vous à votre base de données -> modifier dans env. les données avec les votre ->
 
 APP_SECRET=<your_app_secret_here>
+
 APP_DEBUG=true
+
 DATABASE_URL="mysql://root:<your_database_password>@127.0.0.1:3306/<symfony_project>?serverVersion=8.0.42&charset=utf8mb4"
 
 MAILER_DSN=smtp://<your_email@gmail.com>:<your_email_password>@smtp.gmail.com:587?encryption=tls&auth_mode=login
