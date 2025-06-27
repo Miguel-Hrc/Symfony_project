@@ -35,6 +35,27 @@ scoop install symfony-cli
 curl -sS https://get.symfony.com/cli/installer | bash
 ```
 
+## 🛠️ Configuration de l’environnement
+
+Créer et modifier le fichier avec vos données `.env` (vous devez être connecté à votre bdd local) :
+
+```
+APP_ENV=dev
+APP_SECRET=your_secret
+APP_DEBUG=true
+
+LIMIT_PAGINATION_5=8
+
+DATABASE_URL="mysql://root:<password>@127.0.0.1:3306/<db_name>?serverVersion=8.0.42&charset=utf8mb4"
+
+MAILER_DSN=smtp://your_email@gmail.com:<your_email_password>@smtp.gmail.com:587?encryption=tls&auth_mode=login
+
+STRIPE_SECRET_KEY=sk_test_xxxx
+STRIPE_PUBLIC_KEY=pk_test_xxxx
+```
+
+---
+
 ### 3. Installation du projet Symfony
 
 ```bash
@@ -53,27 +74,6 @@ composer require symfony/dotenv --dev
 composer require doctrine/doctrine-migrations-bundle
 
 npm install bootstrap jquery @popperjs/core --save-dev
-```
-
----
-
-## 🛠️ Configuration de l’environnement
-
-Modifier le fichier `.env` :
-
-```
-APP_ENV=dev
-APP_SECRET=your_secret
-APP_DEBUG=true
-
-LIMIT_PAGINATION_5=8
-
-DATABASE_URL="mysql://root:<password>@127.0.0.1:3306/<db_name>?serverVersion=8.0.42&charset=utf8mb4"
-
-MAILER_DSN=smtp://your_email@gmail.com:<your_email_password>@smtp.gmail.com:587?encryption=tls&auth_mode=login
-
-STRIPE_SECRET_KEY=sk_test_xxxx
-STRIPE_PUBLIC_KEY=pk_test_xxxx
 ```
 
 ---
