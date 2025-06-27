@@ -28,9 +28,13 @@ Remplacer les dossier du répertoire à votre application
 
 Connecter vous à votre base de données -> modifier dans env. les données avec les votre ->
 
+APP_ENV=dev
+
 APP_SECRET=<your_app_secret_here>
 
 APP_DEBUG=true
+
+LIMIT_PAGINATION_5=8
 
 DATABASE_URL="mysql://root:<your_database_password>@127.0.0.1:3306/<symfony_project>?serverVersion=8.0.42&charset=utf8mb4"
 
