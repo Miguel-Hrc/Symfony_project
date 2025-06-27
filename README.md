@@ -5,8 +5,8 @@
 | Logiciel        | Version minimale |
 |----------------|------------------|
 | PHP            | 8.4.8            |
-| MySQL          | 8.0.24           |
-| Apache         | 2.4.63.1         |
+| MySQL          | 8.0.42           |
+| Apache         | 2.4.62.1         |
 | Symfony        | 7                |
 | Composer       | ✅               |
 | Node.js & npm  | ✅               |
