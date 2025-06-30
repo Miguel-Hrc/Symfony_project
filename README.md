@@ -50,6 +50,8 @@ DATABASE_URL="mysql://root:<password>@127.0.0.1:3306/<db_name>?serverVersion=8.0
 
 MAILER_DSN=smtp://your_email@gmail.com:<your_email_password>@smtp.gmail.com:587?encryption=tls&auth_mode=login
 
+MESSENGER_TRANSPORT_DSN=sync://
+
 STRIPE_SECRET_KEY=sk_test_xxxx
 STRIPE_PUBLIC_KEY=pk_test_xxxx
 ```
