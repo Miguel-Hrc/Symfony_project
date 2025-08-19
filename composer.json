@@ -81,13 +81,10 @@
     },
     "scripts": {
         "auto-scripts": {
-            "importmap:install": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
         ]
     },
     "conflict": {
@@ -110,3 +107,4 @@
         "symfony/web-profiler-bundle": "7.2.*"
     }
 }
+
